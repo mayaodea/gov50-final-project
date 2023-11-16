@@ -37,7 +37,10 @@ taylor_swift |>
 
 ```{r}
 dance_vibe <- lm(danceability ~ valence, data = taylor_swift)
-dance_vibe
+dance_vibe |>
+  broom::tidy() |>
+  select(term, estimate) |>
+  knitr::kable(digits = 2)
 ```
 
 In analysis of the scatter plots categorized by album, there seems to be a positive correlation between valence and danceability. A greater valance, or more positive sounding song, seems to elicit greater danceability, whereas a lower valence, more negative sounding song, means less danceability. When running a regression, the correlation coefficient comes out to about 0.2, which is slight but positive. 
