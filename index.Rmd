@@ -15,48 +15,41 @@ I am interested in exploring data related to sports or fashion. Whether it be da
 
 ## Proposal
 
-Do Super Bowl commercials not showing their product quickly overuse marketing strategies? In this study, I plan to examine the use marketing strategies of Super Bowl commercials, focusing on the amount of categories these ads present, and if the product is shown quick enough. There are six popular strategies of marketing categories: Funny, Patriotic, Celebrity, Danger, Animals, and Sex. These are from Ryan Best's article and dataset on the website FiveThirtyEight. I want to explore commercials that didn't show their product in the first 10 seconds and if two or more marketing strategies were used in the ad. I hypothesize many Super Bowl commercials partake in this trend to grab their viewer's attention. Using several strategies creates more of an ostentatious and memorable commercial, which is the goal of showing one at the Super Bowl. My sample is made up of various product commercials during the Super Bowl from several different years, along with True/False data under each of the six marketing strategy categories and the shown quickly variable. My units of analysis are commercials that didn't show a product in the first 10 seconds. My outcome variable is the the number of marketing strategy categories marked true. This will be measured first by count of how many categories each commercial marked true and then the proportion of those using two or more categories and those using less. If the proportion of commercials not showing the product in the first 10 seconds is greater when using two or more categories, then my hypothesis is correct. However if the proportion of those using less than two strategies is greater, then there is evidence against my hypothesis. 
+Does the valence of Taylor Swift's songs affect their dancability? In this study, I plan to examine the danceability score Spotify has given each of Taylor Swift's songs and how it relates to the valence score on a scale of 0 to 1. The valance score measures the musical positiveness conveyed by the track. High valence means a happier, more cheerful, and more euphoric sounds versus low valence which are more of sad, depressed, or angry sounds.
+
+
+
 
 
 ```{r}
-Food_Survey_Data <- read.csv("/Users/mayaodea/Documents/Gov 50/Food Survey - Data.csv")
+taylor_swift <- read.csv("/Users/mayaodea/Downloads/archive (4)/taylor_all_songs.csv")
+
 ```
 
 ```{r}
 library(tidyverse)
-Food_Survey_Data |>
-  group_by(DHBreakfast, Athlete) |>
-  filter(Athlete == "Yes" | Athlete == "No") |>
-  ggplot(mapping = aes(x = DHBreakfast, fill = Athlete)) +
-  geom_bar(position = "dodge") +
-  labs(x = "Amount of Days Eating Breakfast in the Dining Hall (per week)",
-       y = "Count",
-       title = "Athletes v Non Athletes Eating Breakfast in the Dining Hall")
- 
-```
-
-
-```{r}
-Food_Survey_Data |>
-  group_by(Money, Grade) |>
-  filter(Athlete == "Yes" | Athlete == "No") |>
-  filter(Grade == "9th" | Grade == "10th" | Grade == "11th" | Grade == "12th") |>
-  ggplot(mapping = aes(x = Grade, y = Money, fill = Athlete)) +
-  geom_col() +
-  labs(x = "Grade",
-       y = "Money Spend on Outside Food",
-       title = "Visualizing Grade & Money Spent on Outside Food")
+taylor_swift |>
+  filter(album_name == "repuatation" | album_name == "1989" | album_name == "evermore" | album_name == "Speak Now" | album_name == "Fearless (Taylor's Version" | album_name == "folklore" | album_name == "Lover" | album_name == "Midnights" | album_name == "Red (Taylor's Version)" | album_name == "Taylor Swift") |>
+  ggplot(mapping = aes(x = valence, y = danceability)) +
+  geom_point() +
+  facet_wrap(~ album_name)
 ```
 
 ```{r}
-Food_Survey_Data |>
-  group_by(DHBreakfast, Nutrition) |>
-  filter(Athlete == "Yes" | Athlete == "No") |>
-  ggplot(mapping = aes(x = DHBreakfast, y = Nutrition, fill = Athlete)) +
-  geom_col(binwidth = 1) +
-  labs(x = "Amount of Days Eating Breakfast in the Dining Hall (per week)",
-       y = "Awareness of Nutritional Value of Food")
+dance_vibe <- lm(danceability ~ valence, data = taylor_swift)
+dance_vibe
 ```
+
+In analysis of the scatter plots categorized by album, there seems to be a positive correlation between valence and danceability. A greater valance, or more positive sounding song, seems to elicit greater danceability, whereas a lower valence, more negative sounding song, means less danceability. When running a regression, the correlation coefficient comes out to about 0.2, which is slight but positive. 
+
+
+
+
+
+
+
+
+
 
 
 
