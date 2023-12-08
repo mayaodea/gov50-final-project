@@ -111,7 +111,12 @@ tidy(slpage_reg) |>
 mult_reg <- lm(slpnaps ~ selfe + hrwage + age, data = sleep)
 mult_reg
 
-modelsummary::modelsummary(list(slpwage_regression, slpage_reg, mult_reg))
+var_labels <- c("hrwage" = "Hourly Wages",
+                "age" = "Age",
+                "selfe" = "Self Employment Indicator")
+modelsummary::modelsummary(list(slpwage_regression, slpage_reg, mult_reg),
+                           coef_map = var_labels,
+                           gof_map = c("nobs", "r.squared", "adj.r.squared"))
 ```
 
 ## Conclusion
